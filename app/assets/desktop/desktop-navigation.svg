@@ -1,0 +1,28 @@
+<svg width="425.000000" height="693.000000" viewBox="0 0 425 693" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip2_116">
+			<rect id="Group 12 1" width="425.000000" height="393.000000" transform="translate(0.000000 300.000000)" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<rect id="Oval" width="274.000000" height="568.000000" transform="translate(90.000000 0.000000)" fill="#FFFFFF" fill-opacity="0"/>
+	<rect id="Mask" x="90.000000" rx="10.000000" width="274.000000" height="568.000000" fill="#483EFF" fill-opacity="1.000000"/>
+	<rect id="Mask" x="90.000000" rx="10.000000" width="274.000000" height="568.000000" stroke="#979797" stroke-opacity="0" stroke-width="0.000000"/>
+	<mask id="mask2_106" mask-type="alpha" maskUnits="userSpaceOnUse" x="90.000000" y="0.000000" width="274.000000" height="568.000000">
+		<rect id="Mask" x="90.000000" rx="10.000000" width="274.000000" height="568.000000" fill="#483EFF" fill-opacity="1.000000"/>
+		<rect id="Mask" x="90.000000" rx="10.000000" width="274.000000" height="568.000000" stroke="#979797" stroke-opacity="0" stroke-width="0.000000"/>
+	</mask>
+	<g mask="url(#mask2_106)">
+		<rect id="Group 12 1" width="425.000000" height="393.000000" transform="translate(0.000000 300.000000)" fill="#FFFFFF" fill-opacity="0"/>
+		<g clip-path="url(#clip2_116)">
+			<path id="Oval" d="M55.3079 543.101C93.2468 632.538 258.767 685.017 301.961 612.52C345.155 540.023 235.862 526.867 197.226 451.951C158.591 377.035 128.569 330.277 72.7444 347.344C16.9197 364.412 17.3689 453.664 55.3079 543.101Z" fill="#6259FF" fill-opacity="1.000000" fill-rule="evenodd"/>
+			<path id="Oval" d="M323.095 601.153C383.774 572.875 415.934 457.627 364.97 429.625C314.005 401.622 307.573 477.204 256.911 505.612C206.249 534.02 174.771 555.819 187.867 593.853C200.963 631.887 262.416 629.431 323.095 601.153Z" fill="#F9818E" fill-opacity="1.000000" fill-rule="evenodd"/>
+			<path id="Path-2" d="M255.305 469.097L265.912 458.291" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="5.000000" stroke-linejoin="bevel" stroke-linecap="round"/>
+			<path id="Path-2-Copy-2" d="M299.461 474.581L286.955 464.078" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="5.000000" stroke-linejoin="bevel" stroke-linecap="round"/>
+			<path id="Path-2-Copy-3" d="M277.56 488.991L270.652 503.789" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="5.000000" stroke-linejoin="bevel" stroke-linecap="round"/>
+			<path id="Oval" d="M157.305 479.891C157.305 516.894 127.308 546.891 90.3047 546.891C53.3015 546.891 23.3047 516.894 23.3047 479.891C23.3047 442.887 53.3015 412.891 90.3047 412.891C127.308 412.891 157.305 442.887 157.305 479.891Z" fill="#FFAF7E" fill-opacity="1.000000" fill-rule="evenodd"/>
+		</g>
+	</g>
+</svg>
