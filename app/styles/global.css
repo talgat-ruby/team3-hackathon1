@@ -1,0 +1,9 @@
+:root {
+  --color-nav-bg: rgb(190, 226, 253);
+  --color-bg: rgb(242, 242, 242);
+  --color-text-primary: rgb(2, 41, 89);
+  --color-text-secondary: rgb(150, 153, 170);
+  --color-accent-purple: rgb(72, 62, 255);
+
+  --font-primary: "Ubuntu", sans-serif;
+}
