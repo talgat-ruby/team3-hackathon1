@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --color-nav-bg: rgb(190, 226, 253);
   --color-bg: rgb(242, 242, 242);
@@ -6,4 +10,13 @@
   --color-accent-purple: rgb(72, 62, 255);
 
   --font-primary: "Ubuntu", sans-serif;
+}
+
+input[type="text"] {
+  &:focus {
+    outline: none;
+  }
+  &:focus-visible {
+    outline: none;
+  }
 }
