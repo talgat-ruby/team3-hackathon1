@@ -1,6 +1,12 @@
+"use client";
+
+import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const SideNav = () => {
+  const pathname = usePathname();
+
   const list = [
     { label: "Your Info" },
     { label: "Select Plan" },
@@ -15,7 +21,15 @@ const SideNav = () => {
           <li key={item.label}>
             <Link href={`/step` + (i + 1)}>
               <div className="flex gap-4 items-start">
-                <div className="w-[33px] h-[33px] flex justify-center items-center text-white text-sm leading-4 font-bold font-ubuntu bg-transparen border border-solid rounded-full border-white">
+                <div
+                  className={clsx(
+                    "w-[33px] h-[33px] flex justify-center items-center text-white text-sm leading-4 font-bold font-ubuntu bg-transparen border border-solid rounded-full border-white",
+                    {
+                      "bg-[#BEE2FD] text-[#022959] border-[#BEE2FD]":
+                        pathname === `/step` + (i + 1),
+                    },
+                  )}
+                >
                   {i + 1}
                 </div>
                 <div className="flex flex-col text-left gap-1">
