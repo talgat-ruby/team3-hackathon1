@@ -5,6 +5,10 @@ import { InputMask } from "@react-input/mask";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
+// const validateForm = async (data: FormData) => {
+//   "use server";
+// };
+
 const schema = z.object({
   name: z.string().trim().min(1, { message: "This field is required" }),
   email: z
@@ -23,24 +27,18 @@ const schema = z.object({
 
 type SchemaType = z.infer<typeof schema>;
 
-type FormFieldValues = {
-  name: string;
-  email: string;
-  phone: string;
-};
-
 export default function Page() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    console.log(data);
     await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log(data);
   };
 
   return (
@@ -114,10 +112,11 @@ export default function Page() {
           </div>
           <button
             type="submit"
-            disabled={isLoading}
+            // disabled={}
             className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out"
           >
-            {isLoading ? "Processing" : "Next Step"}
+            {/* {pending ? "Processing" : "Next Step"} */}
+            Next Step
           </button>
         </form>
       </div>

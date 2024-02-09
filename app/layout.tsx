@@ -26,7 +26,9 @@ export default function RootLayout({
             <div className="flex flex-col w-[274px] h-full px-8 py-10 rounded-[10px] bg-[#483EFF] bg-center bg-no-repeat bg-cover">
               <SideNav />
             </div>
-            <div className="h-full py-14">{children}</div>
+            <div className="h-full py-14 duration-200 ease-in-out">
+              {children}
+            </div>
           </div>
         </div>
       </body>
