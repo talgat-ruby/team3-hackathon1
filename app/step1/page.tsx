@@ -1,7 +1,27 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { InputMask } from "@react-input/mask";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
+
+const schema = z.object({
+  name: z.string().trim().min(1, { message: "This field is required" }),
+  email: z
+    .string()
+    .trim()
+    .min(1, { message: "This field is required" })
+    .email({ message: "Invalid email" }),
+  phone: z
+    .string()
+    .trim()
+    .min(1, { message: "This field is required" })
+    .regex(/^\+\d{1,3} \(\d{3}\)-\d{3}-\d{2}-\d{2}$/, {
+      message: "Invalid phone number format",
+    }),
+});
+
+type SchemaType = z.infer<typeof schema>;
 
 type FormFieldValues = {
   name: string;
@@ -13,11 +33,14 @@ export default function Page() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormFieldValues>();
+    formState: { errors, isLoading },
+  } = useForm<SchemaType>({
+    resolver: zodResolver(schema),
+  });
 
-  const onSubmit: SubmitHandler<FormFieldValues> = (data) => {
+  const onSubmit: SubmitHandler<SchemaType> = async (data) => {
     console.log(data);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
   };
 
   return (
@@ -42,13 +65,7 @@ export default function Page() {
               )}
             </div>
             <input
-              {...register("name", {
-                required: "This field is required",
-                minLength: {
-                  value: 2,
-                  message: "Minimum length is 2 letters",
-                },
-              })}
+              {...register("name")}
               id="name"
               type="text"
               placeholder="e.g. Stephen King"
@@ -67,15 +84,9 @@ export default function Page() {
               )}
             </div>
             <input
-              {...register("email", {
-                required: "This field is required",
-                minLength: {
-                  value: 5,
-                  message: "Minimum length is 5 letters",
-                },
-              })}
+              {...register("email")}
               id="email"
-              type="text"
+              type="email"
               placeholder="e.g. stephenking@lorem.com"
               className="block w-full px-4 py-3 bg-white border-[#D6D9E6] border rounded-lg focus-visible:border-[#483eff]"
             />
@@ -91,22 +102,22 @@ export default function Page() {
                 </span>
               )}
             </div>
-            <input
-              {...register("phone", {
-                required: "This field is required",
-              })}
+            <InputMask
+              {...register("phone")}
               id="phone"
               type="text"
-              placeholder="e.g. +1 234 567 890"
+              replacement={{ 9: /\d/ }}
+              placeholder="+7 (999)-999-99-99"
+              mask="+7 (999)-999-99-99"
               className="block w-full px-4 py-3 bg-white border-[#D6D9E6] border rounded-lg focus-visible:border-[#483eff]"
             />
           </div>
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isLoading}
             className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out"
           >
-            Next Step
+            {isLoading ? "Processing" : "Next Step"}
           </button>
         </form>
       </div>
