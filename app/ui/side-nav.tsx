@@ -22,13 +22,7 @@ const SideNav = () => {
             <Link href={`/step` + (i + 1)}>
               <div className="flex gap-4 items-start">
                 <div
-                  className={clsx(
-                    "w-[33px] h-[33px] flex justify-center items-center text-white text-sm leading-4 font-bold font-ubuntu bg-transparen border border-solid rounded-full border-white",
-                    {
-                      "bg-[#BEE2FD] text-[#022959] border-[#BEE2FD]":
-                        pathname === `/step` + (i + 1),
-                    },
-                  )}
+                  className={`w-[33px] h-[33px] flex justify-center items-center text-sm leading-4 font-bold font-ubuntu border border-solid rounded-full duration-300 ease-in-out ${pathname === `/step${i + 1}` ? "bg-[#BEE2FD] text-[#022959] border-[#BEE2FD]" : "text-white border-white bg-transparent"}`}
                 >
                   {i + 1}
                 </div>

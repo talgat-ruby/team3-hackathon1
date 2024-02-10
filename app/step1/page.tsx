@@ -2,7 +2,9 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputMask } from "@react-input/mask";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { BeatLoader } from "react-spinners";
 import { z } from "zod";
 
 const schema = z.object({
@@ -18,29 +20,41 @@ const schema = z.object({
     .min(1, { message: "This field is required" })
     .regex(/^\+\d{1,3} \(\d{3}\)-\d{3}-\d{2}-\d{2}$/, {
       message: "Invalid phone number format",
-    }),
+    })
+    .transform((value) => value.replace(/\s|\(|\)|-/g, "")),
 });
 
 type SchemaType = z.infer<typeof schema>;
-
-type FormFieldValues = {
-  name: string;
-  email: string;
-  phone: string;
-};
 
 export default function Page() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit: SubmitHandler<SchemaType> = async (formData) => {
+    setIsLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        plan: "",
+        period: "",
+        addOns: { onlineService: false, largerStorage: false },
+      }),
+    );
+    setIsLoading(false);
+
+    console.log(formData);
   };
 
   return (
@@ -115,9 +129,13 @@ export default function Page() {
           <button
             type="submit"
             disabled={isLoading}
-            className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out"
+            className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out disabled:cursor-not-allowed"
           >
-            {isLoading ? "Processing" : "Next Step"}
+            {isLoading ? (
+              <BeatLoader color="#ffffff" size={"10px"} speedMultiplier={0.7} />
+            ) : (
+              "Next Step"
+            )}
           </button>
         </form>
       </div>
