@@ -2,9 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputMask } from "@react-input/mask";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { BeatLoader } from "react-spinners";
 import { z } from "zod";
-import { usePersonalInfoForm } from "../lib/actions";
 
 const schema = z.object({
   name: z.string().trim().min(1, { message: "This field is required" }),
@@ -34,9 +35,26 @@ export default function Page() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log(data);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit: SubmitHandler<SchemaType> = async (formData) => {
+    setIsLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        plan: "",
+        period: "",
+        addOns: { onlineService: false, largerStorage: false },
+      }),
+    );
+    setIsLoading(false);
+
+    console.log(formData);
   };
 
   return (
@@ -48,7 +66,7 @@ export default function Page() {
         <p className="mb-9">
           Please provide your name, email address, and phone number.
         </p>
-        <form action={usePersonalInfoForm} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
               <label htmlFor="name" className="capitalize text-sm leading-4">
@@ -110,11 +128,14 @@ export default function Page() {
           </div>
           <button
             type="submit"
-            // disabled={}
-            className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out"
+            disabled={isLoading}
+            className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out disabled:cursor-not-allowed"
           >
-            {/* {pending ? "Processing" : "Next Step"} */}
-            Next Step
+            {isLoading ? (
+              <BeatLoader color="#ffffff" size={"10px"} speedMultiplier={0.7} />
+            ) : (
+              "Next Step"
+            )}
           </button>
         </form>
       </div>
