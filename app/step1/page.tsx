@@ -4,10 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { InputMask } from "@react-input/mask";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
-
-// const validateForm = async (data: FormData) => {
-//   "use server";
-// };
+import { usePersonalInfoForm } from "../lib/actions";
 
 const schema = z.object({
   name: z.string().trim().min(1, { message: "This field is required" }),
@@ -22,7 +19,8 @@ const schema = z.object({
     .min(1, { message: "This field is required" })
     .regex(/^\+\d{1,3} \(\d{3}\)-\d{3}-\d{2}-\d{2}$/, {
       message: "Invalid phone number format",
-    }),
+    })
+    .transform((value) => value.replace(/\s|\(|\)|-/g, "")),
 });
 
 type SchemaType = z.infer<typeof schema>;
@@ -50,7 +48,7 @@ export default function Page() {
         <p className="mb-9">
           Please provide your name, email address, and phone number.
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <form action={usePersonalInfoForm} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
               <label htmlFor="name" className="capitalize text-sm leading-4">
