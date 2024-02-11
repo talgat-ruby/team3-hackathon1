@@ -22,14 +22,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex h-screen w-full justify-center items-center bg-[#bee2fd]">
-          <div className="max-w-[940px] w-full h-[600px] flex items-start p-4 gap-24 bg-white rounded-[15px]">
-            <div className="flex flex-col w-[274px] h-full px-8 py-10 rounded-[10px] bg-[#483EFF] bg-center bg-no-repeat bg-cover">
+          <section className="max-w-[940px] w-full h-[600px] flex items-start p-4 gap-24 bg-white rounded-[15px]">
+            <aside className="bg-[#483EFF] bg-[url('/assets/desktop/desktop-navigation.svg')] bg-[center_bottom_-8rem] bg-no-repeat flex flex-col pl-8 pr-[5.5625rem] py-10 rounded-[10px] h-full">
               <SideNav />
-            </div>
-            <div className="h-full py-14 duration-200 ease-in-out">
+            </aside>
+
+            <div className="max-w-[28.125rem] h-full py-14 duration-200 ease-in-out">
               {children}
             </div>
-          </div>
+          </section>
         </div>
       </body>
     </html>

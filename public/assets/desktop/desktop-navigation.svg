@@ -1,0 +1,19 @@
+<svg width="425.000000" height="393.000000" viewBox="0 0 425 393" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip1_24">
+			<rect id="Group 12 1" width="425.000000" height="393.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<rect id="Group 12 1" width="425.000000" height="393.000000" fill="#FFFFFF" fill-opacity="0"/>
+	<g clip-path="url(#clip1_24)">
+		<path id="Oval" d="M55.3079 243.101C93.2468 332.538 258.767 385.017 301.961 312.52C345.155 240.023 235.862 226.867 197.226 151.951C158.591 77.0349 128.569 30.2769 72.7444 47.3443C16.9197 64.4117 17.3689 153.664 55.3079 243.101Z" fill="#6259FF" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="Oval" d="M323.095 301.153C383.774 272.875 415.934 157.627 364.97 129.625C314.005 101.622 307.573 177.204 256.911 205.612C206.249 234.02 174.771 255.819 187.867 293.853C200.963 331.887 262.416 329.431 323.095 301.153Z" fill="#F9818E" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="Path-2" d="M255.305 169.097L265.912 158.291" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="5.000000" stroke-linejoin="bevel" stroke-linecap="round"/>
+		<path id="Path-2-Copy-2" d="M299.461 174.581L286.955 164.078" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="5.000000" stroke-linejoin="bevel" stroke-linecap="round"/>
+		<path id="Path-2-Copy-3" d="M277.56 188.991L270.652 203.789" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="5.000000" stroke-linejoin="bevel" stroke-linecap="round"/>
+		<path id="Oval" d="M157.305 179.891C157.305 216.894 127.308 246.891 90.3047 246.891C53.3015 246.891 23.3047 216.894 23.3047 179.891C23.3047 142.888 53.3015 112.891 90.3047 112.891C127.308 112.891 157.305 142.888 157.305 179.891Z" fill="#FFAF7E" fill-opacity="1.000000" fill-rule="evenodd"/>
+	</g>
+</svg>
