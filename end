@@ -1,0 +1,58 @@
+[33mcommit 9b6ca981619c0a58fc3881f1b29458f21d2c4999[m[33m ([m[1;36mHEAD -> [m[1;32mzarina[m[33m, [m[1;31morigin/zarina[m[33m)[m
+Merge: 2aefdc9 f7f1737
+Author: Естебек Раш <98695442+RashEstebek@users.noreply.github.com>
+Date:   Fri Feb 9 09:37:11 2024 +0600
+
+    Merge pull request #2 from talgat-ruby/samat
+    
+    feat: add routing, form validation and layout for project
+
+[33mcommit f7f1737c4c5538e23541672af5614041581aaf91[m
+Author: samatbelentbay <belentbais03@mail.ru>
+Date:   Fri Feb 9 01:20:24 2024 +0100
+
+    feat: implement routing and layout for all steps
+
+[33mcommit af6524802eba7dcba67cadd333ae5e88501331a9[m
+Author: samatbelentbay <belentbais03@mail.ru>
+Date:   Fri Feb 9 01:09:26 2024 +0100
+
+    feat: add zod validation
+
+[33mcommit 171fcc739fe176a5d796dd16c5f86ae216d71993[m
+Author: samatbelentbay <belentbais03@mail.ru>
+Date:   Thu Feb 8 23:55:46 2024 +0100
+
+    feat: implement form with react-hook-form
+
+[33mcommit 2aefdc9479f0b3ee96210af6601883613c11a463[m
+Merge: 0b41809 54ab935
+Author: Zarina Rakhatova <143261793+rakhatovazarina@users.noreply.github.com>
+Date:   Thu Feb 8 23:36:21 2024 +0600
+
+    Merge pull request #1 from talgat-ruby/rash
+    
+    style: add reset-css and style variables
+
+[33mcommit 54ab93507980b8ae4b07b225bf3ba741c6a780cb[m
+Author: Rash Estebek <98695442+RashEstebek@users.noreply.github.com>
+Date:   Thu Feb 8 22:44:12 2024 +0600
+
+    style: add reset-css and style variables
+    
+    - add `assets`, `components`, `styles` folders
+    - add style variables in `global.css`
+    - import font family `Ubuntu` and `reset-css`
+    - create three components in `components`
+
+[33mcommit 0b418090c4b7f91d6c086c2cbd6a8c0dd458971a[m
+Author: Talgat Saribayev <talgat.s@protonmail.com>
+Date:   Wed Feb 7 08:49:33 2024 +0600
+
+    add prettier
+
+[33mcommit a0899b60363f97a8cb79a429b378495a673f8c94[m
+Author: Talgat Saribayev <talgat.s@protonmail.com>
+Date:   Wed Feb 7 08:47:15 2024 +0600
+
+    Initial commit from Create Next App
