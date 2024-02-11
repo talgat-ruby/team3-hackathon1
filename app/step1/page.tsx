@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BeatLoader } from "react-spinners";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   name: z.string().trim().min(1, { message: "This field is required" }),
@@ -27,6 +28,8 @@ const schema = z.object({
 type SchemaType = z.infer<typeof schema>;
 
 export default function Page() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -55,6 +58,8 @@ export default function Page() {
     setIsLoading(false);
 
     console.log(formData);
+
+    router.push("/step2");
   };
 
   return (
