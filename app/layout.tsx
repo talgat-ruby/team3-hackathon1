@@ -27,7 +27,7 @@ export default function RootLayout({
               <SideNav />
             </aside>
 
-            <div className="max-w-[28.125rem] h-full py-14 duration-200 ease-in-out">
+            <div className="max-w-[28.125rem] max-h-[32rem] h-full py-14 duration-200 ease-in-out">
               {children}
             </div>
           </section>

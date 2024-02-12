@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { BeatLoader } from "react-spinners";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const schema = z.object({
   plan: z.string(),
@@ -60,11 +61,11 @@ export default function Page() {
             id="plan1"
             value="arcade"
             defaultChecked
-            className="hidden"
+            className="hidden peer sr-only"
           />
           <label
             htmlFor="plan1"
-            className="font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-arcade.svg')] bg-[15%_17%] bg-no-repeat"
+            className="peer-checked:border-[--color-accent-purple] font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-arcade.svg')] bg-[15%_17%] bg-no-repeat"
           >
             <p>Arcade</p>
             <span className="font-normal">$9/mo</span>
@@ -76,11 +77,11 @@ export default function Page() {
             name="plan"
             id="plan2"
             value="advanced"
-            className="hidden"
+            className="hidden peer sr-only"
           />
           <label
             htmlFor="plan2"
-            className="font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-advanced.svg')] bg-[15%_17%] bg-no-repeat"
+            className="peer-checked:border-[--color-accent-purple] font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-advanced.svg')] bg-[15%_17%] bg-no-repeat"
           >
             <p>Advanced</p>
             <span className="font-normal">$12/mo</span>
@@ -92,11 +93,11 @@ export default function Page() {
             name="plan"
             id="plan3"
             value="pro"
-            className="hidden"
+            className="hidden peer sr-only"
           />
           <label
             htmlFor="plan3"
-            className="font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-pro.svg')] bg-[15%_17%] bg-no-repeat"
+            className="peer-checked:border-[--color-accent-purple] font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-pro.svg')] bg-[15%_17%] bg-no-repeat"
           >
             <p>Pro</p>
             <span className="font-normal">$15/mo</span>
@@ -124,17 +125,21 @@ export default function Page() {
           <label htmlFor="period2">Yearly</label>
         </fieldset>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <BeatLoader color="#ffffff" size={"10px"} speedMultiplier={0.7} />
-          ) : (
-            "Next Step"
-          )}
-        </button>
+        <section className="flex justify-between items-center">
+          <Link href="/step2">Go Back</Link>
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] mt-[68px] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
+              <BeatLoader color="#ffffff" size={"10px"} speedMultiplier={0.7} />
+            ) : (
+              "Next Step"
+            )}
+          </button>
+        </section>
       </form>
     </main>
   );
