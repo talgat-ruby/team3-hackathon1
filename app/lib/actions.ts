@@ -17,17 +17,14 @@ export const usePersonalInfoForm = async () => {
 
     console.log("Server response:", response.status, response.data);
 
-    return response.data; // Return data from the server if needed
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      // Handle Axios errors
       console.error("Axios error:", error.message);
     } else {
-      // Handle other errors
       console.error("Error:", error);
     }
 
-    // Return null or throw an error as needed
     return null;
   }
 };
