@@ -7,6 +7,7 @@ import "@fontsource/ubuntu/700.css";
 import "./styles/global.css";
 import SideNav from "./ui/side-nav";
 const inter = Inter({ subsets: ["latin"] });
+import ContextProvider from "./context-provider";
 
 export const metadata: Metadata = {
   title: "Multi Step Form",
@@ -27,8 +28,8 @@ export default function RootLayout({
               <SideNav />
             </aside>
 
-            <div className="max-w-[28.125rem] h-full py-14 duration-200 ease-in-out">
-              {children}
+            <div className="max-w-[28.125rem] w-full h-full pt-10 pb-4 duration-200 ease-in-out">
+              <ContextProvider>{children}</ContextProvider>
             </div>
           </section>
         </div>
