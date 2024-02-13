@@ -40,6 +40,7 @@ export default function Page() {
 
     const period = isChecked ? "yearly" : "monthly";
 
+
     contextData.plan = formData.plan;
     contextData.period = period;
     let total = 0;
@@ -162,7 +163,6 @@ export default function Page() {
           <Link href="/step1" className="text-[--color-text-secondary]">
             Go Back
           </Link>
-
           <button
             type="submit"
             disabled={isLoading}
