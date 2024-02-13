@@ -30,6 +30,7 @@ export default function RootLayout({
 
             <div className="max-w-[28.125rem] w-full h-full pt-10 pb-4 duration-200 ease-in-out">
               <ContextProvider>{children}</ContextProvider>
+
             </div>
           </section>
         </div>
