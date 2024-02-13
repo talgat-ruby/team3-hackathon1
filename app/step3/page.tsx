@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BeatLoader } from "react-spinners";
 import { z } from "zod";
@@ -11,9 +11,9 @@ import Link from "next/link";
 
 const schema = z.object({
   addOds: z.object({
-    onlineService: z.boolean(),
-    largerStorage: z.boolean(),
-    customizableProfile: z.boolean(),
+    // onlineService: z.boolean(),
+    // largerStorage: z.boolean(),
+    // customizableProfile: z.boolean(),
   }),
 });
 
@@ -22,9 +22,17 @@ type SchemaType = z.infer<typeof schema>;
 export default function Page() {
   const router = useRouter();
   const contextData = useContext(Context);
-  const [isChecked1, setIsChecked1] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
-  const [isChecked3, setIsChecked3] = useState(false);
+  const [isChecked1, setIsChecked1] = useState(
+    contextData.addOns.onlineService || false,
+  );
+  const [isChecked2, setIsChecked2] = useState(
+    contextData.addOns.largerStorage || false,
+  );
+  const [isChecked3, setIsChecked3] = useState(
+    contextData.addOns.customizableProfile || false,
+  );
+
+  console.log(contextData);
 
   const handleCheckboxChange1 = () => {
     setIsChecked1(!isChecked1);
@@ -44,17 +52,16 @@ export default function Page() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<SchemaType> = async (formData) => {
+  const onSubmit = async () => {
     setIsLoading(true);
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    (contextData.addOns.onlineService = false || formData.addOds.onlineService),
-      (contextData.addOns.largerStorage =
-        false || formData.addOds.largerStorage),
-      (contextData.addOns.customizableProfile =
-        false || formData.addOds.customizableProfile),
-      setIsLoading(false);
+    contextData.addOns.onlineService = isChecked1;
+    contextData.addOns.largerStorage = isChecked2;
+    contextData.addOns.customizableProfile = isChecked3;
+
+    setIsLoading(false);
 
     router.push("/step4");
   };
@@ -67,13 +74,13 @@ export default function Page() {
       <p className="mt-[0.75rem] mb-9 text-[--color-text-secondary]">
         Add-ons help enhance your gaming experience.
       </p>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      <form className="flex flex-col gap-6">
         <fieldset className="flex flex-col gap-4">
           <div
             className={`border border-solid ${isChecked1 ? "border-[#483EFF]" : "border-[#D6D9E6]"} flex gap-6 items-center pt-4 pr-6 pb-5 pl-6 rounded-lg min-w-[28.125rem]`}
           >
             <input
-              {...register("addOds.onlineService")}
+              // {...register("addOds.onlineService")}
               type="checkbox"
               id="onlineService"
               name="onlineService"
@@ -102,7 +109,7 @@ export default function Page() {
             className={`border border-solid ${isChecked2 ? "border-[#483EFF]" : "border-[#D6D9E6]"} flex gap-6 items-center pt-4 pr-6 pb-5 pl-6 border rounded-lg border-[#D6D9E6] min-w-[28.125rem]"`}
           >
             <input
-              {...register("addOds.largerStorage")}
+              // {...register("addOds.largerStorage")}
               type="checkbox"
               id="largerStorage"
               name="largerStorage"
@@ -130,7 +137,7 @@ export default function Page() {
             className={`border border-solid ${isChecked3 ? "border-[#483EFF]" : "border-[#D6D9E6]"} flex gap-6 items-center pt-4 pr-6 pb-5 pl-6 rounded-lg border-[#D6D9E6] min-w-[28.125rem]`}
           >
             <input
-              {...register("addOds.customizableProfile")}
+              // {...register("addOds.customizableProfile")}
               type="checkbox"
               id="customizableProfile"
               name="customizableProfile"
@@ -155,11 +162,14 @@ export default function Page() {
           </div>
         </fieldset>
         <section className="flex justify-between items-center">
-          <Link href="/step2" className="text-[--color-text-secondary]">Go Back</Link>
+          <Link href="/step2" className="text-[--color-text-secondary]">
+            Go Back
+          </Link>
 
           <button
             type="submit"
             disabled={isLoading}
+            onClick={onSubmit}
             className="capitalize w-[123px] h-12 self-end flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#022959] hover:bg-[#164A8A] active:scale-[0.92] duration-200 ease-in-out disabled:cursor-not-allowed"
           >
             {isLoading ? (

@@ -20,12 +20,12 @@ const initialVal: UserData = {
   name: "",
   email: "",
   phone: "",
-  plan: "",
-  period: "",
+  plan: "arcade",
+  period: "monthly",
   addOns: {
-    onlineService: true,
-    largerStorage: true,
-    customizableProfile: true,
+    onlineService: false,
+    largerStorage: false,
+    customizableProfile: false,
   },
   planPrice: 0,
 };

@@ -80,6 +80,7 @@ export default function Page() {
               {...register("name")}
               id="name"
               type="text"
+              defaultValue={contextData.name}
               placeholder="e.g. Stephen King"
               className="block w-full px-4 py-3 bg-white border-[#D6D9E6] border rounded-lg focus-visible:border-[#483eff]"
             />
@@ -99,6 +100,7 @@ export default function Page() {
               {...register("email")}
               id="email"
               type="email"
+              defaultValue={contextData.email}
               placeholder="e.g. stephenking@lorem.com"
               className="block w-full px-4 py-3 bg-white border-[#D6D9E6] border rounded-lg focus-visible:border-[#483eff]"
             />
@@ -117,6 +119,7 @@ export default function Page() {
             <InputMask
               {...register("phone")}
               id="phone"
+              defaultValue={contextData.phone}
               type="text"
               replacement={{ 9: /\d/ }}
               placeholder="+7 (999)-999-99-99"
