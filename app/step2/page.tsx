@@ -1,11 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BeatLoader } from "react-spinners";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { Context } from "../context-provider";
 
 const schema = z.object({
   plan: z.string(),
@@ -16,6 +17,7 @@ type SchemaType = z.infer<typeof schema>;
 
 export default function Page() {
   const router = useRouter();
+  const contextData = useContext(Context);
 
   const { register, handleSubmit } = useForm<SchemaType>({
     resolver: zodResolver(schema),
@@ -27,19 +29,30 @@ export default function Page() {
     setIsLoading(true);
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({
-        plan: formData.plan,
-        period: formData.period,
-        addOns: { onlineService: false, largerStorage: false },
-      }),
-    );
+
+    contextData.plan = formData.plan;
+    contextData.period = formData.period;
+    let total = 0;
+    if (formData.period === "monthly") {
+      if (formData.plan === "arcade") {
+        total = 9;
+      } else if (formData.plan === "advanced") {
+        total = 12;
+      } else {
+        total = 15;
+      }
+    } else {
+      if (formData.plan === "arcade") {
+        total = 9 * 10;
+      } else if (formData.plan === "advanced") {
+        total = 12 * 10;
+      } else {
+        total = 15 * 10;
+      }
+    }
+    contextData.planPrice = total;
+
     setIsLoading(false);
-
-    console.log(formData);
-    console.log("thissss is the local storage", localStorage);
-
     router.push("/step3");
   };
 

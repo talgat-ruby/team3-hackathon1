@@ -2,11 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputMask } from "@react-input/mask";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BeatLoader } from "react-spinners";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { Context } from "../context-provider";
 
 const schema = z.object({
   name: z.string().trim().min(1, { message: "This field is required" }),
@@ -29,6 +30,7 @@ type SchemaType = z.infer<typeof schema>;
 
 export default function Page() {
   const router = useRouter();
+  const contextData = useContext(Context);
 
   const {
     register,
@@ -44,31 +46,22 @@ export default function Page() {
     setIsLoading(true);
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        plan: "",
-        period: "",
-        addOns: { onlineService: false, largerStorage: false },
-      }),
-    );
-    setIsLoading(false);
+    contextData.name = formData.name;
+    contextData.email = formData.email;
+    contextData.phone = formData.phone;
 
-    console.log(formData);
+    setIsLoading(false);
 
     router.push("/step2");
   };
 
   return (
     <main className="main font-ubuntu">
-      <div className="max-w-[450px] w-full grid">
-        <h1 className="uppercase text-[32px] font-bold leading-[37px] ">
+      <div className="w-full grid">
+        <h1 className="uppercase text-[#022959] text-[32px] font-bold leading-[37px] mb-3">
           Personal info
         </h1>
-        <p className="mb-9">
+        <p className="mb-9 text-[#9699AA] leading-6">
           Please provide your name, email address, and phone number.
         </p>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
