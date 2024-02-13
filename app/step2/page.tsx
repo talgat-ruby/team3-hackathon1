@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const schema = z.object({
   plan: z.string(),
-  period: z.string(),
+  // period: z.string(),
 });
 
 type SchemaType = z.infer<typeof schema>;
@@ -19,6 +19,11 @@ type SchemaType = z.infer<typeof schema>;
 export default function Page() {
   const router = useRouter();
   const contextData = useContext(Context);
+  const [isChecked, setIsChecked] = useState(
+    contextData.period === "yearly" || false,
+  );
+
+  console.log(isChecked);
 
   const { register, handleSubmit } = useForm<SchemaType>({
     resolver: zodResolver(schema),
@@ -29,18 +34,16 @@ export default function Page() {
   const onSubmit: SubmitHandler<SchemaType> = async (formData) => {
     setIsLoading(true);
 
+    console.log(formData);
+
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    if (formData.period === "off") {
-      formData.period = "monthly";
-    } else {
-      formData.period = "year";
-    }
+    const period = isChecked ? "yearly" : "monthly";
 
     contextData.plan = formData.plan;
-    contextData.period = formData.period;
+    contextData.period = period;
     let total = 0;
-    if (formData.period === "monthly") {
+    if (period === "monthly") {
       if (formData.plan === "arcade") {
         total = 9;
       } else if (formData.plan === "advanced") {
@@ -80,12 +83,16 @@ export default function Page() {
               name="plan"
               id="plan1"
               value="arcade"
-              defaultChecked
+              defaultChecked={contextData.plan === "arcade"}
               className="hidden peer sr-only"
             />
             <div className="peer-checked:border-[--color-accent-purple] font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-arcade.svg')] bg-[15%_17%] bg-no-repeat">
               <p>Arcade</p>
-              <span className="font-normal">$9/mo</span>
+              {!isChecked ? (
+                <span className="font-normal">$9/mo</span>
+              ) : (
+                <span className="font-normal">$90/yr</span>
+              )}
             </div>
           </label>
 
@@ -96,11 +103,16 @@ export default function Page() {
               name="plan"
               id="plan2"
               value="advanced"
+              defaultChecked={contextData.plan === "advanced"}
               className="hidden peer sr-only"
             />
             <div className="peer-checked:border-[--color-accent-purple] font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-advanced.svg')] bg-[15%_17%] bg-no-repeat">
               <p>Advanced</p>
-              <span className="font-normal">$12/mo</span>
+              {!isChecked ? (
+                <span className="font-normal">$12/mo</span>
+              ) : (
+                <span className="font-normal">$120/yr</span>
+              )}
             </div>
           </label>
 
@@ -111,11 +123,16 @@ export default function Page() {
               name="plan"
               id="plan3"
               value="pro"
+              defaultChecked={contextData.plan === "pro"}
               className="hidden peer sr-only"
             />
             <div className="peer-checked:border-[--color-accent-purple] font-medium max-w-[8.625rem] grow-0 pt-[6.1875rem] pr-[4.3125rem] pb-4 pl-4 border border-solid border-[#D6D9E6] rounded-lg bg-[url('/assets/icon-pro.svg')] bg-[15%_17%] bg-no-repeat">
               <p>Pro</p>
-              <span className="font-normal">$15/mo</span>
+              {!isChecked ? (
+                <span className="font-normal">$15/mo</span>
+              ) : (
+                <span className="font-normal">$150/yr</span>
+              )}
             </div>
           </label>
         </fieldset>
@@ -124,14 +141,16 @@ export default function Page() {
           <span>Monthly</span>
           <label htmlFor="switch" className="cursor-pointer">
             <input
-              {...register("period")}
+              // {...register("period")}
               type="checkbox"
               name="period"
+              defaultChecked={isChecked}
+              onChange={() => setIsChecked(!isChecked)}
               id="switch"
               className="hidden peer"
             />
             <div
-              className="inline-block w-[38px] h-[20px] bg-[--color-text-primary] rounded-[10px] relative 
+              className="inline-block w-[38px] h-[20px] bg-[--color-text-primary] rounded-[10px] relative
             after:content-[''] after:absolute after:top-[5px] after:left-[5px] after:w-[12px] after:h-[12px] after:bg-white
             after:rounded-[90px] after:duration-[0.3s] peer-checked:after:left-[calc(100%-5px)] peer-checked:after:translate-x-[-100%]"
             ></div>
@@ -140,7 +159,9 @@ export default function Page() {
         </fieldset>
 
         <section className="flex justify-between items-center mt-auto">
-          <Link href="/step1" className="text-[--color-text-secondary]">Go Back</Link>
+          <Link href="/step1" className="text-[--color-text-secondary]">
+            Go Back
+          </Link>
 
           <button
             type="submit"
