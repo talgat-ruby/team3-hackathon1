@@ -31,6 +31,12 @@ export default function Page() {
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
+    if (formData.period === "off") {
+      formData.period = "monthly";
+    } else {
+      formData.period = "year";
+    }
+
     contextData.plan = formData.plan;
     contextData.period = formData.period;
     let total = 0;
@@ -114,35 +120,27 @@ export default function Page() {
           </label>
         </fieldset>
 
-        <fieldset className="bg-[#F8F9FF] px-[8.375rem] py-[0.8125rem]">
-          <label htmlFor="period1" className="cursor-pointer">
+        <fieldset className="bg-[#F8F9FF] px-[8.375rem] py-[0.8125rem] text-[0.875rem] flex gap-6 text-[--color-text-primary]">
+          <span>Monthly</span>
+          <label htmlFor="switch" className="cursor-pointer">
             <input
               {...register("period")}
-              type="radio"
+              type="checkbox"
               name="period"
-              id="period1"
-              value="monthly"
-              defaultChecked
-              className="hidden"
+              id="switch"
+              className="hidden peer"
             />
-            <span>Monthly</span>
+            <div
+              className="inline-block w-[38px] h-[20px] bg-[--color-text-primary] rounded-[10px] relative 
+            after:content-[''] after:absolute after:top-[5px] after:left-[5px] after:w-[12px] after:h-[12px] after:bg-white
+            after:rounded-[90px] after:duration-[0.3s] peer-checked:after:left-[calc(100%-5px)] peer-checked:after:translate-x-[-100%]"
+            ></div>
           </label>
-
-          <label htmlFor="period2" className="cursor-pointer">
-            <input
-              {...register("period")}
-              type="radio"
-              name="period"
-              id="period2"
-              value="yearly"
-              className="hidden"
-            />
-            <span>Yearly</span>
-          </label>
+          <span>Yearly</span>
         </fieldset>
 
         <section className="flex justify-between items-center mt-auto">
-          <Link href="/step1">Go Back</Link>
+          <Link href="/step1" className="text-[--color-text-secondary]">Go Back</Link>
 
           <button
             type="submit"
