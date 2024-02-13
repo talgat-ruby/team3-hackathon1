@@ -3,18 +3,28 @@
 import Image from "next/image";
 import IconConfirmation from "../../public/assets/icon-confirmation.svg";
 import Link from "next/link";
-import { useContext } from "react";
+import { use, useContext } from "react";
 import { Context } from "../context-provider";
 import AddonItem from "../components/add-on-item";
+import { postData } from "../lib/actions";
 
 export default function Home() {
   const contextData = useContext(Context);
-  console.log(contextData);
-
-  console.log(contextData.addOns["onlineService"]);
   const period = contextData.period === "monthly" ? "mo" : "yr";
   const miltiplier = contextData.period === "monthly" ? 1 : 10;
   const total = contextData.planPrice + (((contextData.addOns["onlineService"] ? 1 : 0) + (contextData.addOns["largerStorage"] ? 2 : 0) + (contextData.addOns["customizableProfile"] ? 2 : 0)) * miltiplier);
+
+  const handleClick = async () => {
+    try{
+      console.log(contextData);
+
+      const response = await postData({ name: contextData.name, email: contextData.email, phone: contextData.phone, plan: contextData.plan, period: contextData.period, addOns: contextData.addOns })
+      console.log('Response from server:', response);
+
+    } catch(error){
+      console.error("Error:", error);
+    }
+  }
 
   return (
     <main className="main">
@@ -97,14 +107,13 @@ export default function Home() {
           >
             Go Back
           </Link>
-          <form>
-            <button
-              type="submit"
-              className="capitalize w-[123px] h-12 flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#483EFF] hover:bg-[#928CFF] active:scale-[0.92] duration-200 ease-in-out disabled:cursor-not-allowed"
-            >
-              Confirm
-            </button>
-          </form>
+          <button
+            type="submit"
+            className="capitalize w-[123px] h-12 flex justify-center items-center text-center rounded-lg font-medium leading-[18px] text-white bg-[#483EFF] hover:bg-[#928CFF] active:scale-[0.92] duration-200 ease-in-out disabled:cursor-not-allowed"
+            onClick={handleClick}
+          >
+            Confirm
+          </button>
         </div>
       </div>
     </main>

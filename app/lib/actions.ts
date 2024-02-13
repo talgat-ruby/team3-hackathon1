@@ -1,23 +1,39 @@
 "use server";
 import axios from "axios";
 
-export const usePersonalInfoForm = async () => {
+export const postData = async ({ name,
+  email,
+  phone,
+  plan,
+  period,
+  addOns }: { name: string, email: string, phone: string, plan: string, period: string, addOns: object }) => {
+
   try {
-    const storedDataString = localStorage.getItem("userData");
-    if (!storedDataString) return;
-
-    const storedData = JSON.parse(storedDataString);
-
-    const response = await axios.post("http://localhost:8081/api/v1/forms", {
+    console.log(1);
+    const response = await fetch("http://localhost:8081/api/v1/forms", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
-      storedData,
+      }, body: JSON.stringify({
+        name,
+        email,
+        phone,
+        plan,
+        period,
+        addOns
+      })
     });
 
-    console.log("Server response:", response.status, response.data);
+    if(response.status === 204){
+      console.log("Server response:", response.status);
+      return {message: "Data posted successfully"}
+    }
+    if(response.status === 400){
+      const data = await response.json();
+      return data;
+    } console.log("Server response:", response.status);
 
-    return response.data;
+    return response.status;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Axios error:", error.message);
