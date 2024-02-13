@@ -1,11 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BeatLoader } from "react-spinners";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { Context } from "../context-provider";
 import Link from "next/link";
 
 const schema = z.object({
@@ -20,6 +21,22 @@ type SchemaType = z.infer<typeof schema>;
 
 export default function Page() {
   const router = useRouter();
+  const contextData = useContext(Context);
+  const [isChecked1, setIsChecked1] = useState(false);
+  const [isChecked2, setIsChecked2] = useState(false);
+  const [isChecked3, setIsChecked3] = useState(false);
+
+  const handleCheckboxChange1 = () => {
+    setIsChecked1(!isChecked1);
+  };
+
+  const handleCheckboxChange2 = () => {
+    setIsChecked2(!isChecked2);
+  };
+
+  const handleCheckboxChange3 = () => {
+    setIsChecked3(!isChecked3);
+  };
 
   const { register, handleSubmit } = useForm<SchemaType>({
     resolver: zodResolver(schema),
@@ -31,17 +48,13 @@ export default function Page() {
     setIsLoading(true);
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({
-        addOns: { 
-          onlineService: false || formData.addOds.onlineService, 
-          largerStorage: false || formData.addOds.largerStorage,
-          customizableProfile: false || formData.addOds.customizableProfile,
-        },
-      }),
-    );
-    setIsLoading(false);
+
+    (contextData.addOns.onlineService = false || formData.addOds.onlineService),
+      (contextData.addOns.largerStorage =
+        false || formData.addOds.largerStorage),
+      (contextData.addOns.customizableProfile =
+        false || formData.addOds.customizableProfile),
+      setIsLoading(false);
 
     router.push("/step4");
   };
@@ -56,44 +69,93 @@ export default function Page() {
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <fieldset className="flex flex-col gap-4">
-          <div className="pt-4 pr-6 pb-5 pl-6 border border-solid rounded-lg border-[#D6D9E6] min-w-[28.125rem]">
+          <div
+            className={`border border-solid ${isChecked1 ? "border-[#483EFF]" : "border-[#D6D9E6]"} flex gap-6 items-center pt-4 pr-6 pb-5 pl-6 rounded-lg min-w-[28.125rem]`}
+          >
             <input
               {...register("addOds.onlineService")}
               type="checkbox"
               id="onlineService"
               name="onlineService"
               value="true"
+              checked={isChecked1}
+              onChange={handleCheckboxChange1}
             />
-            <label htmlFor="onlineService">Online service</label>
-            <p>Access to multiplayer games</p>
+
+            <div>
+              <label htmlFor="onlineService">Online service</label>
+              <p className="text-[--color-text-secondary]">
+                Access to multiplayer games
+              </p>
+            </div>
+
+            <div className="ml-auto text-[14px] text-[--color-accent-purple]">
+              {contextData.period === "monthly" ? (
+                <span>+$1/mo</span>
+              ) : (
+                <span>+$10/yr</span>
+              )}
+            </div>
           </div>
 
-          <div className="pt-4 pr-6 pb-5 pl-6 border border-solid rounded-lg border-[#D6D9E6] min-w-[28.125rem]">
+          <div
+            className={`border border-solid ${isChecked2 ? "border-[#483EFF]" : "border-[#D6D9E6]"} flex gap-6 items-center pt-4 pr-6 pb-5 pl-6 border rounded-lg border-[#D6D9E6] min-w-[28.125rem]"`}
+          >
             <input
               {...register("addOds.largerStorage")}
               type="checkbox"
               id="largerStorage"
               name="largerStorage"
               value="true"
+              checked={isChecked2}
+              onChange={handleCheckboxChange2}
             />
-            <label htmlFor="largerStorage">Larger storage</label>
-            <p>Extra 1TB of cloud save</p>
+            <div>
+              <label htmlFor="largerStorage">Larger storage</label>
+              <p className="text-[--color-text-secondary]">
+                Extra 1TB of cloud save
+              </p>
+            </div>
+
+            <div className="ml-auto text-[14px] text-[--color-accent-purple]">
+              {contextData.period === "monthly" ? (
+                <span>+$2/mo</span>
+              ) : (
+                <span>+$20/yr</span>
+              )}
+            </div>
           </div>
 
-          <div className="pt-4 pr-6 pb-5 pl-6 border border-solid rounded-lg border-[#D6D9E6] min-w-[28.125rem]">
+          <div
+            className={`border border-solid ${isChecked3 ? "border-[#483EFF]" : "border-[#D6D9E6]"} flex gap-6 items-center pt-4 pr-6 pb-5 pl-6 rounded-lg border-[#D6D9E6] min-w-[28.125rem]`}
+          >
             <input
               {...register("addOds.customizableProfile")}
               type="checkbox"
               id="customizableProfile"
               name="customizableProfile"
               value="true"
+              checked={isChecked3}
+              onChange={handleCheckboxChange3}
             />
-            <label htmlFor="customizableProfile">Customizable profile</label>
-            <p>Custom theme on your profile</p>
+            <div>
+              <label htmlFor="customizableProfile">Customizable profile</label>
+              <p className="text-[--color-text-secondary]">
+                Custom theme on your profile
+              </p>
+            </div>
+
+            <div className="ml-auto text-[14px] text-[--color-accent-purple]">
+              {contextData.period === "monthly" ? (
+                <span>+$2/mo</span>
+              ) : (
+                <span>+$20/yr</span>
+              )}
+            </div>
           </div>
         </fieldset>
         <section className="flex justify-between items-center">
-          <Link href="/step2">Go Back</Link>
+          <Link href="/step2" className="text-[--color-text-secondary]">Go Back</Link>
 
           <button
             type="submit"
