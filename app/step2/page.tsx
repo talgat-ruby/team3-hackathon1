@@ -65,10 +65,7 @@ export default function Page() {
       <p className="mt-[0.75rem] mb-9 text-[--color-text-secondary]">
         You have the option of monthly or yearly billing.
       </p>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-6"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <fieldset className="flex gap-[1.125rem]">
           <label htmlFor="plan1" className="cursor-pointer">
             <input
@@ -117,25 +114,31 @@ export default function Page() {
           </label>
         </fieldset>
 
-        <fieldset>
-          <input
-            {...register("period")}
-            type="radio"
-            name="period"
-            id="period1"
-            value="monthly"
-            defaultChecked
-          />
-          <label htmlFor="period1">Monthly</label>
+        <fieldset className="bg-[#F8F9FF] px-[8.375rem] py-[0.8125rem]">
+          <label htmlFor="period1" className="cursor-pointer">
+            <input
+              {...register("period")}
+              type="radio"
+              name="period"
+              id="period1"
+              value="monthly"
+              defaultChecked
+              className="hidden"
+            />
+            <span>Monthly</span>
+          </label>
 
-          <input
-            {...register("period")}
-            type="radio"
-            name="period"
-            id="period2"
-            value="yearly"
-          />
-          <label htmlFor="period2">Yearly</label>
+          <label htmlFor="period2" className="cursor-pointer">
+            <input
+              {...register("period")}
+              type="radio"
+              name="period"
+              id="period2"
+              value="yearly"
+              className="hidden"
+            />
+            <span>Yearly</span>
+          </label>
         </fieldset>
 
         <section className="flex justify-between items-center mt-auto">
